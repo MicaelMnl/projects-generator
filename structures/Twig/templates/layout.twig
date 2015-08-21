@@ -1,0 +1,39 @@
+
+{% block header %}
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="New project">
+
+    <title>New project</title>
+
+    <link rel="stylesheet" href="assets/libs/Bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/libs/Bootstrap/css/morris.css">
+    <link rel="stylesheet" href="assets/libs/Bootstrap/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/general.css">
+
+
+</head>
+<body >
+<header >
+</header>
+  
+	{%block content %}
+	  
+	{% endblock %}
+
+	{% block footer %}
+	
+		<script src="assets/libs/Jquery/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="assets/libs/Bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="assets/libs/Bootstrap/js/morris.js"></script>
+		<script src="assets/js/function.js"></script>
+    </body>
+</html>
+{% endblock %}
+{% endblock %}

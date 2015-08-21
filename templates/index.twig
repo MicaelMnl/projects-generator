@@ -1,0 +1,48 @@
+
+{% extends "layout.twig" %}
+{% block content %}
+    <div class="raw">
+        
+        <div class="container">
+            <h1>Generateur des projets</h1>
+            <form role="form" action="" method="POST">
+            
+                <div class="form-group">
+                  <label for="pwd">User:</label>
+                  <input type="text" class="form-control {{(POST.USER) ? 'success alert-success'  : '' }} "  name="USER" value="{{ (POST.USER) ? POST.USER : '' }}">
+                  {% if errors is not null and errors.has("USER") %}<span class="help-block alert alert-danger">{{ errors.get("USER") }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Host:</label>
+                  <input type="text" class="form-control {{(POST.HOST) ? 'success alert-success'  : '' }}" name="HOST"value="{{ (POST.HOST) ? POST.HOST : '' }}" >
+                  {% if errors is not null and errors.has("HOST") %}<span class="help-block alert alert-danger">{{ errors.get("HOST") }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Mot de passe:</label>
+                  <input type="password" class="form-control {{(POST.PASSWORD) ? 'success alert-success'  : '' }}" name="PASSWORD" value="{{ (POST.PASSWORD) ? POST.PASSWORD : '' }}">
+                  {% if errors is not null and errors.has("PASSWORD") %}<span class="help-block alert alert-danger">{{ errors.get("PASSWORD") }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Nom de la base des données :</label>
+                  <input type="text" class="form-control {{(POST.DBNAME) ? 'success alert-success'  : '' }} " name="DBNAME" value="{{ (POST.DBNAME) ? POST.DBNAME : '' }}">
+                  {% if errors is not null and errors.has("DBNAME") %}<span class="help-block alert alert-danger">{{ errors.get("DBNAME") }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Chemin fichier:</label>
+                  <input type="text" class="form-control {{(POST.PATH) ? 'success alert-success'  : '' }}" name="PATH" value="{{ (POST.PATH) ? POST.PATH : '' }}">
+                <span class="help-block">Syntaxe : Path/FOLDER-NAME</span>
+                  {% if errors is not null and errors.has("PATH") %}<span class="help-block alert alert-danger">{{ errors.get("PATH") }}</span>{% endif %}
+                </div>
+                <div class="checkbox">
+                    <label><input type="radio" name="CATEGORIE" value="1" checked >Structure avec Twig & POO</label>
+                
+                    <label><input type="radio" name="CATEGORIE" value="2">Structure en POO</label>
+                
+                    <label><input type="radio" name="CATEGORIE" value="3">Seulment les classe & Managers</label>
+                </div>
+                {% if errors is not null and errors.has("DBERROR") %}<span class="help-block alert alert-danger">{{ errors.get("DBERROR") }}</span>{% endif %}
+                <input name="submit" type="submit" class="btn btn-default">
+            </form>
+        </div>
+    </div>
+{% endblock %}

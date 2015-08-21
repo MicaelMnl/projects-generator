@@ -1,0 +1,41 @@
+
+{% block header %}
+<!DOCTYPE html>
+<html lang="{% trans("fr")%}">
+<head>
+    <title>{{PAGE.getName}}</title>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta name="description" content="{{PAGE.getDescription|striptags}}">
+    <link rel="stylesheet" href="assets/libs/Bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/libs/Bootstrap/css/bootstrap-datepicker.css">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ICO" />
+    <link href='http://fonts.googleapis.com/css?family=Lora:400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/general.css">
+    
+    
+    
+
+
+
+</head>
+
+<body >
+
+
+     
+                
+<header>
+        
+</header>  
+        
+{% block content %}
+
+  {% endblock %}
+</body>
+</html>
+
+{% endblock %}
