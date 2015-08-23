@@ -113,21 +113,35 @@ class Utils {
         $addparams = "";
         $addparamsValues = "";
         $addparams2 = "";
+        $addparamsUpdate2 = "";
+        $addparamsUpdate = "";
+        $idtest="";
         $dernireValeur = end($describes);
         $compteur = 0;
         foreach($describes as $key => $condition){
+            if($compteur == 0){
+                $addparamsUpdate2 .= '            $pdo->bindValue(\':'.$condition['Field'].'\',$'.$className.'->get'.ucfirst($condition['Field']).'());'.$sautLigne;
+                $idtest .= '$pdo->bindValue(\':'.$condition['Field'].'\',$'.$className.'->get'.ucfirst($condition['Field']).'());'.$sautLigne;
+            }
             if($compteur != 0){
             if($dernireValeur != $condition ){
                 $addparams .= ''.$condition['Field'].',';
+                $addparamsUpdate .= $condition['Field'].'=:'.$condition['Field'].',';
                 $addparamsValues .= ':'.$condition['Field'].',';
             }else{
                 $addparams .= ''.$condition['Field'].' ';
                  $addparamsValues .= ':'.$condition['Field'].'';
+                $addparamsUpdate .= $condition['Field'].'=:'.$condition['Field'].'';
             }
             $addparams2 .= '            $pdo->bindValue(\':'.$condition['Field'].'\',$'.$className.'->get'.ucfirst($condition['Field']).'());'.$sautLigne;
+            $addparamsUpdate2 .= '            $pdo->bindValue(\':'.$condition['Field'].'\',$'.$className.'->get'.ucfirst($condition['Field']).'());'.$sautLigne;
+            
+            
             };
+           
+            
             $compteur++;
-        };
+            };
         foreach($describes as $describe){
             $describeName[] = $describe['Field'];
             $id = strtolower(substr($describes[0]['Field'], 0, 2));
@@ -137,7 +151,7 @@ class Utils {
                      .'        while($datas = $pdo->fetch(PDO::FETCH_ASSOC)){'.$sautLigne
                      .'             $'.$className.'[] = new '.ucfirst($className).'($datas);'.$sautLigne
                      .'        }'.$sautLigne
-                     .'        return $'.$className.';'.$sautLigne
+                     .'        return (isset($'.$className.')) ? $'.$className.' : null ;'.$sautLigne
                      .'    }'.$sautLigne;
             if($id === 'id')
                 $getByID = '    public static function get'.ucfirst($className).'ById('.ucfirst($className).' $'.$className.'){'.$sautLigne
@@ -163,15 +177,19 @@ class Utils {
                 
                 $update = '    public static function update'.ucfirst($className).'('.ucfirst($className).' $'.$className.'){'.$sautLigne
                       .'        try { '.$sautLigne
-                      .'            $pdo = Database::getInstance()->prepare(\'UPDATE  '.$className.' SET '.$addparams.' WHERE '.$conditionID.' \');'.$sautLigne
-                      .''.$addparams2
+                      .'            $pdo = Database::getInstance()->prepare(\'UPDATE  '.$className.' SET '.$addparamsUpdate.' WHERE '.$conditionID.' \');'.$sautLigne
+                      .''.$addparamsUpdate2
                       .'            $pdo->execute();'.$sautLigne
                       .'        }'.$sautLigne
                       .'        catch (PDOException $e) {'.$sautLigne
                       .'            echo $e->getMessage();'.$sautLigne
                       .'        }'.$sautLigne
                       .'    }'.$sautLigne;
-             
+                $delete = '    public static function delete'.ucfirst($className).'('.ucfirst($className).' $'.$className.'){'.$sautLigne
+                        .'      $pdo = Database::getInstance()->prepare(\'DELETE FROM '.$className.' WHERE '.$conditionID.' \');'.$sautLigne
+                        .'      '.$idtest.''.$sautLigne
+                        .'      $pdo->execute();'.$sautLigne
+                        .'    }'.$sautLigne;
         }
         $texte =  '<?php'.$sautLigne
                 .'class '.ucfirst($fileName).' {'.$sautLigne.$sautLigne
@@ -179,6 +197,7 @@ class Utils {
                 .$getByID.$sautLigne
                 .$add.$sautLigne
                 .$update.$sautLigne
+                .$delete.$sautLigne
                 .'}'.$sautLigne;
                 
         fwrite ($file, $texte);
@@ -231,14 +250,12 @@ class Utils {
                 .'    define(\'DB_USER\', \''.$dbuser.'\');'.$sautLigne
                 .'    define(\'DB_PASSWORD\', \''.$dbpassword.'\');'.$sautLigne
                 .'    define(\'DB_NAME\', \''.$dbname.'\');'.$sautLigne
-                .'    define(\'DB_PATH\', \''.$chemin.'\');'.$sautLigne.$sautLigne
                 .'}'.$sautLigne
                 .'else {'.$sautLigne.$sautLigne
                 .'    define(\'DB_HOST\', \''.$ipconfig.'\');'.$sautLigne
                 .'    define(\'DB_USER\', \''.$ipconfig.'\');'.$sautLigne
                 .'    define(\'DB_PASSWORD\', \''.$ipconfig.'\');'.$sautLigne
                 .'    define(\'DB_NAME\', \''.$ipconfig.'\');'.$sautLigne
-                .'    define(\'DB_PATH\', \''.$ipconfig.'\');'.$sautLigne.$sautLigne
                 .'}'.$sautLigne;
         $texte =  '<?php'.$sautLigne
                 .''.$config.$sautLigne;
