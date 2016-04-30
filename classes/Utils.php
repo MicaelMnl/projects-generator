@@ -154,9 +154,9 @@ class Utils {
                      .'        return (isset($'.$className.')) ? $'.$className.' : null ;'.$sautLigne
                      .'    }'.$sautLigne;
             if($id === 'id')
-                $getByID = '    public static function get'.ucfirst($className).'ById('.ucfirst($className).' $'.$className.'){'.$sautLigne
+                $getByID = '    public static function get'.ucfirst($className).'ById($id){'.$sautLigne
                          .'        $pdo = Database::getInstance()->prepare(\'SELECT * FROM '.$className.' WHERE '.$describes[0]['Field'].'=:'.$describes[0]['Field'].'\');'.$sautLigne
-                         .'        $pdo->bindValue(\':'.$describes[0]['Field'].'\',$'.$className.'->get'.ucfirst($describes[0]['Field']).'());'.$sautLigne
+                         .'        $pdo->bindValue(\':'.$describes[0]['Field'].'\',$id);'.$sautLigne
                          .'        $pdo->execute();'.$sautLigne
                          .'        $data = $pdo->fetch(PDO::FETCH_ASSOC);'.$sautLigne
                          .'        $'.$className.' = new '.ucfirst($className).'($data);'.$sautLigne
