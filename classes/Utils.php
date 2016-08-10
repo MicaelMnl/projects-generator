@@ -18,7 +18,7 @@ class Utils {
 
             }
             catch(exeption $e){
-               echo $e->getMessage();
+               echo 'echec'.$e->getMessage();
                return False;
             }
             return $pdo;

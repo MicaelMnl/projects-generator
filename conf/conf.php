@@ -5,7 +5,7 @@ session_start();
 ////////// twig /////
 define('PATH',  dirname(__FILE__).'/../');
 require_once PATH.'assets/libs/Twig/Autoloader.php';
-require_once 'Autoloader.php';
+require_once 'AutoLoader.php';
 
 Twig_Autoloader::register();
 //Twig_Extensions_Autoloader::register();
