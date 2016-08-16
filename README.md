@@ -1,5 +1,5 @@
 # Generateur-des-projets
-generator of class and Manager or Php whit Twig Porject and PHP POO project
+generator of class and Manager or php Porject whit Twig  and PHP POO project
 
 #Installation
 All the installation instructions are located in the documentation.
