@@ -1,0 +1,48 @@
+<?php
+ 
+session_start();
+
+include_once 'autoload.php';
+include_once '../assets/libs/Twig/Autoloader.php';
+
+Twig_Autoloader::register();
+
+$twig = new Twig_Environment(new Twig_Loader_Filesystem('templates'), array(
+    'cache' => false, // '/path/to/compilation_cache',
+    'debug' => false
+));
+
+$twig->addExtension(new Twig_Extension_Debug());
+$ip = $_SERVER['SERVER_ADDR'];
+
+if( $ip == '127.0.0.1' ){
+
+    define('DB_HOST', 'localhost');
+    define('DB_USER', 'root');
+    define('DB_PASSWORD', '');
+    define('DB_NAME', 'rennes_b&b');
+    define('DB_PATH', 'http://127.0.0.1/hn/rennes_b&b/');
+    define('PATH', 'http://127.0.0.1/hn/rennes_b&b/backoffice/');
+    define('ADMIN_ID', 'rennes');
+    define('ADMIN_PASSWORD', 'rennesbandb');
+
+}
+else {
+
+   define('DB_HOST', 'hndigitapbrennes.mysql.db');
+    define('DB_USER', 'hndigitapbrennes');
+    define('DB_PASSWORD', 'Hndigital35');
+    define('DB_NAME', 'hndigitapbrennes');
+    define('ADMIN_ID', 'rennes');
+    define('ADMIN_PASSWORD', 'rennesbandb');
+    define('DB_PATH', 'http://rennes-bandb.hndigital.fr/');
+    define('PATH', 'http://rennesbandb.hndigital.fr/backoffice/');
+}
+
+$twig->addGlobal('path', DB_PATH);
+if(empty($_SESSION['user']['ID']) && !defined('NO_LOGIN_REQUIRED')) {
+    header('Location: login.html');
+    exit();
+}
+    
+

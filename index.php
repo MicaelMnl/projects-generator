@@ -110,6 +110,26 @@ if(isset($_POST['submit'])){
   
     
 }
+// section backoffice 
+
+if(isset($_POST['submit-backoffice']))    
+{
+    if(isset($_POST))
+    {
+        $error = new Errors();
+        if(empty($_POST['PATH_CLASS']))
+            $error->add ('Veuilliez sassir le nom de la base de donnés. ', 'DBNAME');
+        
+        if(empty($_POST['PATH']))
+            $error->add ('Veuilliez sassir le chemi des fichers ', 'PATH');
+        
+        if($error->isEmpty())
+        {
+            var_dump($_POST);
+        }
+    }
+}
+
 echo $twig->render('index.twig',array(
     'POST' => (isset($_POST)) ? $_POST : null,
     'errors' => (isset($error)) ? $error : null
