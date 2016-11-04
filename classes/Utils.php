@@ -284,8 +284,4 @@ class Utils {
      closedir($dir); 
     }
     
-    public static function createClass($name){
-        
-    }
-    
 }

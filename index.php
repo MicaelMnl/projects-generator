@@ -125,7 +125,21 @@ if(isset($_POST['submit-backoffice']))
         
         if($error->isEmpty())
         {
-            var_dump($_POST);
+            $dir = $_POST['PATH_CLASS'];
+            $files = scandir($dir);
+            $menu = array();
+            foreach ($files as $file) 
+            {
+                if( count(explode('.php',$file)) > 1)
+                {
+                    $name = explode('.php',$file);
+                    array_push($menu,$name[0]);
+                    $content = file_get_contents($dir.$file);
+                    explode($content);
+                    // creation controller ;
+                    
+                }
+            }
         }
     }
 }
